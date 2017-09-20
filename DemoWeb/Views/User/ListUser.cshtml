@@ -1,0 +1,33 @@
+﻿@model IEnumerable<DemoWeb.Models.User>
+
+@{
+    ViewBag.Title = "ListUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ListUser</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateNewUser")
+</p>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th></th>
+    </tr>
+
+@foreach (var std in ViewData["users"] as IList<DemoWeb.Models.User>){
+    <tr>
+        <td>@std.ID</td>
+        <td>@std.name</td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }, new { onclick = "return confirm('Are sure wants to delete?');" })
+        </td>
+    </tr>
+}
+
+</table>
