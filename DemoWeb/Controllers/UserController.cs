@@ -56,6 +56,16 @@ namespace DemoWeb.Controllers
         {
             try
             {
+                //if (string.IsNullOrEmpty(user.ID))
+                //{
+                //    ModelState.AddModelError("ID", "ID is require");
+                //}
+
+                if (string.IsNullOrEmpty(user.name))
+                {
+                    ModelState.AddModelError("name", "Name is require");
+                }
+
                 if (ModelState.IsValid)
                 {
                     Models.UserHandler sdb = new Models.UserHandler();
@@ -64,9 +74,12 @@ namespace DemoWeb.Controllers
                         ViewBag.Message = "Student Details Added Successfully";
                         ModelState.Clear();
                     }
+
+                    return RedirectToAction("ListUser");
                 }
 
-                return Redirect("ListUser");
+                return View();
+
             }
             catch
             {

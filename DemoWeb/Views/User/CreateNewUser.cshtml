@@ -1,5 +1,8 @@
 ﻿@model DemoWeb.Models.User
-
+@{
+    HtmlHelper.ClientValidationEnabled = true;
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
+}
 @{
     ViewBag.Title = "CreateNewUser";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,7 +13,6 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
         <h4>User</h4>
         <h2>@ViewBag.Message</h2>
@@ -20,7 +22,7 @@
             @Html.LabelFor(model => model.ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ID, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.ID)
             </div>
         </div>
 
@@ -28,7 +30,16 @@
             @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.birthDate)
+            <div class="col-md-offset-2 col-md-10">
+                <input class="text-box single-line" data-val="true" data-val-date="The field Date of Birth must be a date." data-val-required="The Date of Birth field is required." data-val-validbirthdate="DOB Should be between 01-25-1970 &amp; 01-25-2000" data-val-validbirthdate-max="01-25-2000" data-val-validbirthdate-min="01-25-1970" id="birthDate" name="birthDate" type="date" value="">
+                @Html.EditorFor(model => model.birthDate)
+                @Html.ValidationMessageFor(model => model.birthDate)
             </div>
         </div>
 
@@ -37,9 +48,16 @@
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
+
+       
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "ListUser")
 </div>
+
+@Scripts.Render("~/jQuery")
+@Scripts.Render("~/jQueryValidate")
+@Scripts.Render("~/Unobtrusive")
+@Scripts.Render("~/CustomValidation")
